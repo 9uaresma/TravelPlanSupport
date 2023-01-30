@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+import math
 
 COLOR_OF_TIME_AXIS = 'white'
 COLOR_OF_TIME_TABLE = 'green'
@@ -9,10 +10,14 @@ time_from=2.5
 time_to=4
 
 class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
-    def DrawRect(self, parent_frame):
+    def DrawRect(self, parent_frame, entry_from, entry_to):
         def inner():
-            frame_rect=Frame(parent_frame, relief=FLAT,bg='blue',width=10,height=10)
-            frame_rect.place(x=0,y=0)
+            #矩形width計算
+            rect_width=math.floor((int(entry_to.get())-int(entry_from.get()))/60*40)
+            print(rect_width)
+            frame_rect=Canvas(parent_frame, relief=FLAT,bg='blue',width=rect_width,height=20)
+            #frame_rect.place(x=0,y=0)
+            frame_rect.place(x=40*int(entry_from.get())/60,y=0)
         return inner
 
     def __init__(self, master = None):  #コンストラクタ(インスタンス生成時に実行される処理)
@@ -68,7 +73,7 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
         label_TimeInput_to=Label(frame_TimeInput,text="到着",bg=COLOR_OF_TIME_AXIS,font=("",'10'))
         label_TimeInput_to.grid(row=0,column=2)
 
-        button_Time = Button(frame_TimeInput, text="Enter",command=self.DrawRect(frame_TimeTable_Table))
+        button_Time = Button(frame_TimeInput, text="Enter",command=self.DrawRect(frame_TimeTable_Table,ent_TimeInput_from,ent_TimeInput_to))
         button_Time.grid(row=0,column=4)
 
     
