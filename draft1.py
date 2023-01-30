@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 
 COLOR_OF_TIME_AXIS = 'gray'
-COLOF_OF_TIME_TABLE = 'green'
+COLOR_OF_TIME_TABLE = 'green'
 
 class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
     def __init__(self, master = None):  #コンストラクタ(インスタンス生成時に実行される処理)
@@ -19,17 +19,19 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
         frame_TimeAxis.place(relx=0, rely=0) # Frame_TimeAxisフレームを配置
         frame_TimeAxis_letter=[]
         for i in range(24):
-            frame_TimeAxis_letter.append(Frame(frame_TimeAxis, relief=FLAT, bd=5, width=40,height=40,bg=COLOR_OF_TIME_AXIS))
-            frame_TimeAxis_letter[i].pack_propagate(0)  #親フレームサイズの固定。pack時のフレームサイズ自動変更を防ぐ
-            frame_TimeAxis_letter[i].place(x=40*i, y=0)
-            label_time_1=Label(frame_TimeAxis_letter[i], text=str(i),bg=COLOR_OF_TIME_AXIS,font='20')
+            frame_TimeAxis_letter.append(Canvas(frame_TimeAxis,height=40,width=40,bg='blue',highlightthickness=0))
+            frame_TimeAxis_letter[i].pack_propagate(0) #文字サイズに合わせて親オブジェクトのサイズが変わることを防ぐ
+            frame_TimeAxis_letter[i].grid(row=0,column=i,ipadx=0)
+            frame_TimeAxis_letter[i].create_rectangle(0, 0, 40, 40,fill=COLOR_OF_TIME_AXIS)
+            
+            label_time_1=Label(frame_TimeAxis_letter[i], text=str(i),bg=COLOR_OF_TIME_AXIS,font=("",'20'))
             label_time_1.pack(anchor='center',expand=1)
         
         #背景
-        canvas=Canvas(self,height=150,width=960)
+        canvas=Canvas(self,height=150,width=960,highlightthickness=0)
         canvas.place(x=0, y=40)
         for i in range(24):
-            canvas.create_rectangle(40*i, 0, 40*(i+1), 600,fill=COLOF_OF_TIME_TABLE)
+            canvas.create_rectangle(40*i, 0, 40*(i+1), 600,fill=COLOR_OF_TIME_TABLE)
 
 
 if __name__ == "__main__":
