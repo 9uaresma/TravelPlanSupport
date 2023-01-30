@@ -1,10 +1,20 @@
 from tkinter import *
 from tkinter import ttk
 
-COLOR_OF_TIME_AXIS = 'gray'
+COLOR_OF_TIME_AXIS = 'white'
 COLOR_OF_TIME_TABLE = 'green'
 
+#入力値
+time_from=2.5
+time_to=4
+
 class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
+    def DrawRect(self, parent_frame):
+        def inner():
+            frame_rect=Frame(parent_frame, relief=FLAT,bg='blue',width=10,height=10)
+            frame_rect.place(x=0,y=0)
+        return inner
+
     def __init__(self, master = None):  #コンストラクタ(インスタンス生成時に実行される処理)
         super().__init__(master) #Frame(継承元)のコンストラクタを実行.親ウィジェットを設定
         #ウインドウの設定
@@ -15,7 +25,7 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
         #--------------------------------------------------------
         #以下、子ウイジェットを記述
         #タイムテーブル
-        frame_TimeTable=Frame(self, relief=FLAT,bg='red',width=1000,height=100) # FrameクラスからFrame_TimeTableインスタンスを生成
+        frame_TimeTable=Frame(self, relief=FLAT,bg='gray',width=1000,height=100) # FrameクラスからFrame_TimeTableインスタンスを生成
         frame_TimeTable.grid(row=0,column=0)
         
         #時間軸
@@ -41,6 +51,28 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
             frame_TimeTable_Table_rect[i].grid(row=0,column=i)
             frame_TimeTable_Table_rect[i].create_rectangle(0, 0, 40, 40,fill=COLOR_OF_TIME_TABLE)       
         del i
+
+        #入力部
+        frame_TimeInput=Frame(self, relief=FLAT,bg='gray',width=1000,height=100)
+        frame_TimeInput.place(x=0,y=70)
+
+        ent_TimeInput_from=Entry(frame_TimeInput,width=20)
+        ent_TimeInput_from.grid(row=0,column=1)
+
+        label_TimeInput_from=Label(frame_TimeInput,text="出発",bg=COLOR_OF_TIME_AXIS,font=("",'10'))
+        label_TimeInput_from.grid(row=0,column=0)
+
+        ent_TimeInput_to=Entry(frame_TimeInput,width=20)
+        ent_TimeInput_to.grid(row=0,column=3)
+
+        label_TimeInput_to=Label(frame_TimeInput,text="到着",bg=COLOR_OF_TIME_AXIS,font=("",'10'))
+        label_TimeInput_to.grid(row=0,column=2)
+
+        button_Time = Button(frame_TimeInput, text="Enter",command=self.DrawRect(frame_TimeTable_Table))
+        button_Time.grid(row=0,column=4)
+
+    
+
 
 if __name__ == "__main__":
     root = Tk()
