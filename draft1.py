@@ -14,25 +14,33 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
         self.pack(expand=1, fill=BOTH)
         #--------------------------------------------------------
         #以下、子ウイジェットを記述
-        #時間軸
-        frame_TimeAxis=Frame(self, relief=FLAT,width=960,height=40,bg='red') # FrameクラスからFrame_TimeAxisインスタンスを生成
-        frame_TimeAxis.place(relx=0, rely=0) # Frame_TimeAxisフレームを配置
-        frame_TimeAxis_letter=[]
-        for i in range(24):
-            frame_TimeAxis_letter.append(Canvas(frame_TimeAxis,height=40,width=40,bg='blue',highlightthickness=0))
-            frame_TimeAxis_letter[i].pack_propagate(0) #文字サイズに合わせて親オブジェクトのサイズが変わることを防ぐ
-            frame_TimeAxis_letter[i].grid(row=0,column=i,ipadx=0)
-            frame_TimeAxis_letter[i].create_rectangle(0, 0, 40, 40,fill=COLOR_OF_TIME_AXIS)
-            
-            label_time_1=Label(frame_TimeAxis_letter[i], text=str(i),bg=COLOR_OF_TIME_AXIS,font=("",'20'))
-            label_time_1.pack(anchor='center',expand=1)
+        #タイムテーブル
+        frame_TimeTable=Frame(self, relief=FLAT,bg='red',width=1000,height=100) # FrameクラスからFrame_TimeTableインスタンスを生成
+        frame_TimeTable.grid(row=0,column=0)
         
-        #背景
-        canvas=Canvas(self,height=150,width=960,highlightthickness=0)
-        canvas.place(x=0, y=40)
+        #時間軸
+        frame_TimeTable_TimeAxis=Frame(frame_TimeTable, relief=FLAT,bg='blue') # Frameクラスからframe_TimeTable_TimeAxisインスタンスを生成
+        frame_TimeTable_TimeAxis.place(x=0,y=0)
+        frame_TimeTable_TimeAxis_letter=[]
+        label_time_l=[]
+        for i in range(25):
+            frame_TimeTable_TimeAxis_letter.append(Canvas(frame_TimeTable_TimeAxis,height=20,width=40,bg='blue',highlightthickness=0))
+            frame_TimeTable_TimeAxis_letter[i].grid(row=0,column=i)
+            frame_TimeTable_TimeAxis_letter[i].pack_propagate(0) #文字サイズに合わせて親オブジェクトのサイズが変わることを防ぐ
+            frame_TimeTable_TimeAxis_letter[i].create_rectangle(0, 0, 40, 20,fill=COLOR_OF_TIME_AXIS,width=0)           
+            label_time_l.append(Label(frame_TimeTable_TimeAxis_letter[i], text=str(i),bg=COLOR_OF_TIME_AXIS,font=("",'10')))
+            label_time_l[i].pack(anchor='center',expand=1)
+        del i
+        
+        #時間帯表示エリア
+        frame_TimeTable_Table=Frame(frame_TimeTable, relief=FLAT,bg='blue')
+        frame_TimeTable_Table.place(x=20,y=20)
+        frame_TimeTable_Table_rect=[]
         for i in range(24):
-            canvas.create_rectangle(40*i, 0, 40*(i+1), 600,fill=COLOR_OF_TIME_TABLE)
-
+            frame_TimeTable_Table_rect.append(Canvas(frame_TimeTable_Table,height=40,width=40,bg='yellow',highlightthickness=0))
+            frame_TimeTable_Table_rect[i].grid(row=0,column=i)
+            frame_TimeTable_Table_rect[i].create_rectangle(0, 0, 40, 40,fill=COLOR_OF_TIME_TABLE)       
+        del i
 
 if __name__ == "__main__":
     root = Tk()
