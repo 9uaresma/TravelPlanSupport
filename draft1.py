@@ -10,14 +10,17 @@ time_from=2.5
 time_to=4
 
 class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
-    def DrawRect(self, parent_frame, entry_from, entry_to):
+    def DrawRect(self, parent_frame, ent_from_time, ent_from_minute, ent_to_time, ent_to_minute):
         def inner():
+            #開始時刻[分]
+            start_minute = int(ent_from_time.get())*60 + int(ent_from_minute.get())
+            #終了時刻[分]
+            end_minute = int(ent_to_time.get())*60 + int(ent_to_minute.get())
             #矩形width計算
-            rect_width=math.floor((int(entry_to.get())-int(entry_from.get()))/60*40)
+            rect_width=(end_minute - start_minute)*40/60
             print(rect_width)
-            frame_rect=Canvas(parent_frame, relief=FLAT,bg='blue',width=rect_width,height=20)
-            #frame_rect.place(x=0,y=0)
-            frame_rect.place(x=40*int(entry_from.get())/60,y=0)
+            frame_rect=Canvas(parent_frame, relief=FLAT,bg='gold',width=rect_width,height=20,highlightthickness=0)
+            frame_rect.place(x=start_minute*40/60,y=0)
         return inner
 
     def __init__(self, master = None):  #コンストラクタ(インスタンス生成時に実行される処理)
@@ -60,21 +63,43 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
         #入力部
         frame_TimeInput=Frame(self, relief=FLAT,bg='gray',width=1000,height=100)
         frame_TimeInput.place(x=0,y=70)
-
-        ent_TimeInput_from=Entry(frame_TimeInput,width=20)
-        ent_TimeInput_from.grid(row=0,column=1)
-
+        
         label_TimeInput_from=Label(frame_TimeInput,text="出発",bg=COLOR_OF_TIME_AXIS,font=("",'10'))
         label_TimeInput_from.grid(row=0,column=0)
+        
+        ent_TimeInput_from_time=Entry(frame_TimeInput,width=20)
+        ent_TimeInput_from_time.grid(row=0,column=1)
 
-        ent_TimeInput_to=Entry(frame_TimeInput,width=20)
-        ent_TimeInput_to.grid(row=0,column=3)
+        label_TimeInput_from_time=Label(frame_TimeInput,text="時",bg=COLOR_OF_TIME_AXIS,font=("",'10'))
+        label_TimeInput_from_time.grid(row=0,column=2)
 
+        ent_TimeInput_from_minute=Entry(frame_TimeInput,width=20)
+        ent_TimeInput_from_minute.grid(row=0,column=3)
+
+        label_TimeInput_from_minute=Label(frame_TimeInput,text="分",bg=COLOR_OF_TIME_AXIS,font=("",'10'))
+        label_TimeInput_from_minute.grid(row=0,column=4)
+        
         label_TimeInput_to=Label(frame_TimeInput,text="到着",bg=COLOR_OF_TIME_AXIS,font=("",'10'))
-        label_TimeInput_to.grid(row=0,column=2)
+        label_TimeInput_to.grid(row=0,column=5)
 
-        button_Time = Button(frame_TimeInput, text="Enter",command=self.DrawRect(frame_TimeTable_Table,ent_TimeInput_from,ent_TimeInput_to))
-        button_Time.grid(row=0,column=4)
+        ent_TimeInput_to_time=Entry(frame_TimeInput,width=20)
+        ent_TimeInput_to_time.grid(row=0,column=6)
+
+        label_TimeInput_to_time=Label(frame_TimeInput,text="時",bg=COLOR_OF_TIME_AXIS,font=("",'10'))
+        label_TimeInput_to_time.grid(row=0,column=7)
+
+        ent_TimeInput_to_minute=Entry(frame_TimeInput,width=20)
+        ent_TimeInput_to_minute.grid(row=0,column=8)
+
+        label_TimeInput_minute=Label(frame_TimeInput,text="分",bg=COLOR_OF_TIME_AXIS,font=("",'10'))
+        label_TimeInput_minute.grid(row=0,column=9)
+
+        button_Time = Button(frame_TimeInput, text="Enter",command=self.DrawRect(frame_TimeTable_Table, 
+                                                                                ent_TimeInput_from_time,
+                                                                                ent_TimeInput_from_minute,
+                                                                                ent_TimeInput_to_time,
+                                                                                ent_TimeInput_to_minute))
+        button_Time.grid(row=0,column=10)
 
     
 
