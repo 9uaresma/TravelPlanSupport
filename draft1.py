@@ -9,40 +9,39 @@ COLOR_OF_TIME_TABLE = 'green'
 time_from=2.5
 time_to=4
 
-
-
 class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
-    def test(self,x):
-        def inner():
-            print(x)
-        return inner
-
-    def handler(self,func,*args):
-        return func(*args)
-
-    def DrawRect(self, parent_frame, ent_from_time, ent_from_minute, ent_to_time, ent_to_minute,rect_return):
-        def inner():
-            #開始時刻[分]
-            start_minute = int(ent_from_time.get())*60 + int(ent_from_minute.get())
-            #終了時刻[分]
-            end_minute = int(ent_to_time.get())*60 + int(ent_to_minute.get())
-            #矩形width計算
-            rect_width=(end_minute - start_minute)*40/60
-            print(rect_width)
-            rect_return=Canvas(parent_frame, relief=FLAT,bg='gold',width=rect_width,height=20,highlightthickness=0)
-            rect_return.place(x=start_minute*40/60,y=0) 
-            print(id(rect_return))
-            return rect_return
-        return inner
-
-    
-
-    def RemoveWidget_place(self, widget):
-        def inner():
-            #place_forget
-            widget.place_forget()
-            print(id(widget))
-        return inner
+    class RectGeneration:
+        def __init__(self):                  # コンストラクタ
+            self.canv = None
+        def DrawRect(self, parent_frame, ent_from_time, ent_from_minute, ent_to_time, ent_to_minute):
+            def inner():
+                if self.canv==None:
+                    if str.isdigit(ent_from_time.get()) and str.isdigit(ent_from_minute.get()) and str.isdigit(ent_to_time.get()) and str.isdigit(ent_to_minute.get()):
+                        #開始時刻[分]
+                        start_minute = int(ent_from_time.get())*60 + int(ent_from_minute.get())
+                        #終了時刻[分]
+                        end_minute = int(ent_to_time.get())*60 + int(ent_to_minute.get())
+                        #矩形width計算
+                        rect_width=(end_minute - start_minute)*40/60
+                        print(rect_width)
+                        rect_return=Canvas(parent_frame, relief=FLAT,bg='gold',width=rect_width,height=20,highlightthickness=0)
+                        rect_return.place(x=start_minute*40/60,y=0) 
+                        self.canv = rect_return
+                        print(self.canv)
+                    else:
+                        print("Enter Digits!")
+                else:
+                    pass
+            return inner
+        def RmRect(self):
+            def inner():
+                if self.canv!=None:
+                    self.canv.destroy()
+                    self.canv=None
+                    print(self.canv)
+                else:
+                    print(self.canv)
+            return inner  
 
     def __init__(self, master = None):  #コンストラクタ(インスタンス生成時に実行される処理)
         super().__init__(master) #Frame(継承元)のコンストラクタを実行.親ウィジェットを設定
@@ -115,27 +114,17 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
         label_TimeInput_minute=Label(frame_TimeInput,text="分",bg=COLOR_OF_TIME_AXIS,font=("",'10'))
         label_TimeInput_minute.grid(row=0,column=9)
         
-        rect1=None
-        callback1=self.DrawRect
-        test1=self.test
-        print(callback1)
-        print(test1)
-        #button_Time = Button(frame_TimeInput, text="Enter",command=self.handler(test1,"a"))
-        button_Time = Button(frame_TimeInput, text="Enter",command=self.handler(callback1,frame_TimeTable_Table, 
+        rect_timetable=self.RectGeneration()
+        button_Time = Button(frame_TimeInput, text="Enter",command=rect_timetable.DrawRect(frame_TimeTable_Table, 
                                                                                 ent_TimeInput_from_time,
                                                                                 ent_TimeInput_from_minute,
                                                                                 ent_TimeInput_to_time,
                                                                                 ent_TimeInput_to_minute,
-                                                                                rect1))
+                                                                                ))
         button_Time.grid(row=0,column=10)
-        button_remove = Button(frame_TimeInput, text="Enter",command=self.test(rect1))
+        button_remove = Button(frame_TimeInput, text="Enter",command=rect_timetable.RmRect())
         #button_remove = Button(frame_TimeInput, text="Enter",command=self.RemoveWidget_place(rect))
         button_remove.grid(row=0,column=11)
-        
-        
-
-    
-
 
 if __name__ == "__main__":
     root = Tk()
