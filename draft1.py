@@ -122,7 +122,7 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
                                                                                 ent_TimeInput_to_minute,
                                                                                 ))
         button_Time.grid(row=0,column=10)
-        button_remove = Button(frame_TimeInput, text="Enter",command=rect_timetable.RmRect())
+        button_remove = Button(frame_TimeInput, text="Remove",command=rect_timetable.RmRect())
         #button_remove = Button(frame_TimeInput, text="Enter",command=self.RemoveWidget_place(rect))
         button_remove.grid(row=0,column=11)
 
