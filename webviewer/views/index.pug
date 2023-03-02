@@ -1,0 +1,29 @@
+extends components/_layout
+
+block content
+  <body>
+  <form action="/" method="post">
+    <label>Input your plan</label>
+    <input required type="text" name="plan" placeholder="Input your plan"/>
+    <input required type="number" name="hour" max=1000 placeholder="Input Plan hour"/>
+
+    <input type="submit" value="Add"/>
+  
+  p='plan_num = '+plan_num 
+
+  each plan in plans
+    li #{plan[0]} : #{plan[1]} hours
+  
+  p='TTL hours = '+ttl_hours
+  
+  //- each hour in hours
+  //-   li=hour
+
+  //- - for (var i=1; i < plan_num; i++)
+  //-     p=plans[i]+' : '+hours[i]+' hours'
+    
+  //- p=plans+' : '+hours+' hours'
+  
+
+  </form>
+  </body>
