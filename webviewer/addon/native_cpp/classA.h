@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-// Planを登録・表示するクラスです。
+// Planを登録・表示するクラス
 class ClassA
 {
 public:

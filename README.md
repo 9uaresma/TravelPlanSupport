@@ -1,5 +1,9 @@
 # **旅行計画を補助するアプリ**
 
+## Repository
+https://github.com/9uaresma/TravelPlanSupport
+
+
 ## **デスクトップ版**
 ---------------------------
 ### 機能一覧
@@ -27,7 +31,7 @@ Input your plan の所に，Plan名 と，所要時間を記入して，Addを�
 トータル時間が一番下に表示される
 
 
-![AboutWebViewer](docs\images\webviewer_image.PNG "image")
+![AboutWebViewer](docs\images\webviewer_image.png)
 
 
 ### ビルド手順
@@ -78,7 +82,8 @@ node .\app.js
 ```
 
 Server running at http://127.0.0.1:3000 と表示されるので，
-ブラウザを開き，urlを入力すると，
+ブラウザを開き，urlを入力すると，見れる.
+
 
 
 <!--
