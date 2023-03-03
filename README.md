@@ -31,7 +31,7 @@ Input your plan の所に，Plan名 と，所要時間を記入して，Addを�
 トータル時間が一番下に表示される
 
 
-![AboutWebViewer](docs\images\webviewer_image.png)
+![AboutWebViewer](/docs/images/webviewer_image.png)
 
 
 ### ビルド手順
