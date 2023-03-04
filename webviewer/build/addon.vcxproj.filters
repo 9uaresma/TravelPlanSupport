@@ -66,10 +66,10 @@
     <ClCompile Include="..\addon\wrapper.cc">
       <Filter>..\addon</Filter>
     </ClCompile>
-    <ClCompile Include="..\addon\native_cpp\classA.cpp">
+    <ClCompile Include="..\addon\native_cpp\planContainer.cpp">
       <Filter>..\addon\native_cpp</Filter>
     </ClCompile>
-    <ClInclude Include="..\addon\native_cpp\classA.h">
+    <ClInclude Include="..\addon\native_cpp\planContainer.h">
       <Filter>..\addon\native_cpp</Filter>
     </ClInclude>
     <ClCompile Include="C:\Program Files\nodejs\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc">

@@ -1,8 +1,60 @@
+
+
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /* font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; */
 }
 
-a {
+header {
+  color: white;
+  background: rgb(105, 95, 4);
+  font: "Helvetica";
+}
+.h1 {
+  padding : 20px, 20px;
+}
+
+content{
+  color : black;
+}
+.p {
+  color: black;
+}
+content body a {
+  margin-left: 1.5em;
+  padding: 10px;
   color: #00B7FF;
+}
+content body form label {
+  padding-left: 20px;
+  text-indent: 10.0em;
+}
+.Button {
+  /* color: white;
+  background:rgb(49, 48, 39);
+  border: 2px solid transparent; */
+  height: 20px;
+  width: 30px;
+  cursor: pointer;
+  align-items: center;
+}
+.Button.hover {
+  border: 2px solid rgb(105, 95, 4);
+  background: white;
+  color: black;
+}
+.button_num {
+  width: 1px;
+  border: 2px solid transparent;
+  color: transparent;
+  background: transparent;
+  cursor: default;
+}
+
+footer {
+  color: white;
+  background: rgb(105, 95, 4);
+}
+.p {
+  align-items: right;
 }

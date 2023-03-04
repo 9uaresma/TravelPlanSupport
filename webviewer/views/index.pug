@@ -1,29 +1,23 @@
 extends components/_layout
 
 block content
-  <body>
-  <form action="/" method="post">
-    <label>Input your plan</label>
-    <input required type="text" name="plan" placeholder="Input your plan"/>
-    <input required type="number" name="hour" max=1000 placeholder="Input Plan hour"/>
 
-    <input type="submit" value="Add"/>
-  
-  p='plan_num = '+plan_num 
+  body
+    form(action="/" method="post")
+      label input your plan
+      input(type="text" name="plan" placeholder="plan name")
+      input(type="number" name="hour" max=1000 placeholder="hour")
+      input(type="submit" name = "add" value="Add")
 
-  each plan in plans
-    li #{plan[0]} : #{plan[1]} hours
-  
-  p='TTL hours = '+ttl_hours
-  
-  //- each hour in hours
-  //-   li=hour
-
-  //- - for (var i=1; i < plan_num; i++)
-  //-     p=plans[i]+' : '+hours[i]+' hours'
+    a plan_num = #{plan_num}  TTL hours = #{ttl_hours}
     
-  //- p=plans+' : '+hours+' hours'
-  
+      - for (var i=0; i<plan_num; i++)
+        form(action="/" method="post")
+          br
+          if i == 0
+            input(type="submit" id="btn" name = "btn" value=" " class="Button")
+          else
+            input(type="submit" id="btn" name = "btn" value="↑" class="Button")
+          input(type="number" name="num" value=i class="button_num" readonly="readonly")
+          label       #{plans[i]} : #{hours[i]} hours
 
-  </form>
-  </body>

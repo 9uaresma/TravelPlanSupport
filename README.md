@@ -1,7 +1,17 @@
 # **旅行計画を補助するアプリ**
 
-## Repository
+## Git repository
 https://github.com/9uaresma/TravelPlanSupport
+
+gitからcloneする
+
+```
+#! bash
+
+git clone https://github.com/9uaresma/TravelPlanSupport.git
+
+```
+
 
 
 ## **デスクトップ版**
@@ -27,11 +37,12 @@ c++ で作成
 
 ### 使い方
 Input your plan の所に，Plan名 と，所要時間を記入して，Addをクリック  
-すると，Planと所要時間の一覧が画面に表示される．  
-トータル時間が一番下に表示される
+すると，Planと所要時間の一覧が画面に表示される． 
+
+また，左側にある 「↑」をクリックすると，順番を入れ替えることができる  
 
 
-![AboutWebViewer](/docs/images/webviewer_image.png)
+![AboutWebViewer](/docs/gif/webviewer_use.gif)
 
 
 ### ビルド手順
@@ -60,9 +71,9 @@ npm install --global windows-build-tools
 参考：
 https://qiita.com/Akihiro_Nakayama/items/dc31f9ae9519602f9f50
 
-addon/native_cpp/classA.cpp に定義したクラスを，wrapper.cppやaddon.cc を使って
+addon/native_cpp/planContainer.cpp に定義したクラスを，wrapper.cppやaddon.cc を使って
 nodejsに引き渡している．
-classA.cppの関数を増やしたら，他の関数を真似つつwrapperやaddonを編集し，以下を実行．
+planContainer.cppの関数を増やしたら，他の関数を真似つつwrapperやaddonを編集し，以下を実行．
 
 ```
 #! bash
@@ -81,7 +92,7 @@ node .\app.js
 
 ```
 
-Server running at http://127.0.0.1:3000 と表示されるので，
+Server running at http://127.0.0.1:3000 と表示されるので，  
 ブラウザを開き，urlを入力すると，見れる.
 
 

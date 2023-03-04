@@ -137,7 +137,7 @@
     <None Include="..\binding.gyp"/>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\addon\native_cpp\classA.h"/>
+    <ClInclude Include="..\addon\native_cpp\planContainer.h"/>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\addon\addon.cc">
@@ -146,8 +146,8 @@
     <ClCompile Include="..\addon\wrapper.cc">
       <ObjectFileName>$(IntDir)\addon\wrapper.obj</ObjectFileName>
     </ClCompile>
-    <ClCompile Include="..\addon\native_cpp\classA.cpp">
-      <ObjectFileName>$(IntDir)\addon\native_cpp\classA.obj</ObjectFileName>
+    <ClCompile Include="..\addon\native_cpp\planContainer.cpp">
+      <ObjectFileName>$(IntDir)\addon\native_cpp\planContainer.obj</ObjectFileName>
     </ClCompile>
     <ClCompile Include="C:\Program Files\nodejs\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc"/>
   </ItemGroup>

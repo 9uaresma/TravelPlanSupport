@@ -2,7 +2,7 @@
 #define WRAPPER
 
 #include <napi.h> // 必要なヘッダ
-#include "./native_cpp/classA.h"
+#include "./native_cpp/planContainer.h"
 
 class Wrapper : public Napi::ObjectWrap<Wrapper> {
 public:
@@ -14,11 +14,14 @@ public:
 
     // クラスAのラッピング関数
     Napi::Value setPlan(const Napi::CallbackInfo &info);
+    Napi::Value getPlans(const Napi::CallbackInfo &info);
+    Napi::Value getHours(const Napi::CallbackInfo &info);
     Napi::Value showPlan(const Napi::CallbackInfo &info);
     Napi::Value getTtlHours(const Napi::CallbackInfo &info);
+    Napi::Value swapPlanElements(const Napi::CallbackInfo &info);
 
 private:
-    ClassA* m_classA;
+    PlanContainer* m_class;
 };
 
 #endif

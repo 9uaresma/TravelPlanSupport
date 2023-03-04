@@ -25,8 +25,11 @@ Napi::Object Wrapper::Init(Napi::Env env, Napi::Object exports)
         env, "Wrapper", {
             // ここにメソッドを登録する
             InstanceMethod("setPlan", &Wrapper::setPlan),
+            InstanceMethod("getPlans", &Wrapper::getPlans),
+            InstanceMethod("getHours", &Wrapper::getHours),
             InstanceMethod("showPlan", &Wrapper::showPlan),
             InstanceMethod("getTtlHours", &Wrapper::getTtlHours),
+            InstanceMethod("swapPlanElements", &Wrapper::swapPlanElements),
         });
 
     Napi::FunctionReference *constructor = new Napi::FunctionReference();
@@ -38,20 +41,20 @@ Napi::Object Wrapper::Init(Napi::Env env, Napi::Object exports)
 }
 
 // ---------------------------------------------------------- //
-// ---------- これより下で ClassAのラッピングを定義する ----------- //
+// ---------- これより下で Classのラッピングを定義する ----------- //
 // ---------------------------------------------------------- //
 
 // コンストラクタ
 Wrapper::Wrapper(const Napi::CallbackInfo &info)
     : Napi::ObjectWrap<Wrapper>(info)
 {
-    m_classA = new ClassA();
+    m_class = new PlanContainer();
 };
 
 Wrapper::~Wrapper()
 {
-    delete m_classA;
-    m_classA = nullptr;
+    delete m_class;
+    m_class = nullptr;
 };
 
 // メンバ関数
@@ -60,20 +63,52 @@ Napi::Value Wrapper::setPlan(const Napi::CallbackInfo &info)
     Napi::Env env = info.Env();
     std::string plan_name = info[0].As<Napi::String>().ToString();
     int plan_hour = info[1].As<Napi::Number>().Int32Value();
-    m_classA->set_plan(plan_name, plan_hour);
+    m_class->set_plan(plan_name, plan_hour);
     return env.Null();
+}
+
+
+Napi::Value Wrapper::getPlans(const Napi::CallbackInfo &info)
+{
+    Napi::Env env = info.Env();
+    std::vector<std::string> plans = m_class->get_plans();
+    Napi::Array outArr = Napi::Array::New(env, plans.size());
+    for (size_t i=0; i < plans.size(); i++){
+        outArr[i] = Napi::String::New(env, plans[i]);
+    }
+    return outArr;
+}
+
+Napi::Value Wrapper::getHours(const Napi::CallbackInfo &info)
+{
+    Napi::Env env = info.Env();
+    std::vector<long> hours = m_class->get_hours();
+    Napi::Array outArr = Napi::Array::New(env, hours.size());
+    for (size_t i=0; i < hours.size(); i++){
+        outArr[i] = Napi::Number::New(env, hours[i]);
+    }
+    return outArr;
 }
 
 Napi::Value Wrapper::showPlan(const Napi::CallbackInfo &info)
 {
     Napi::Env env = info.Env();
-    std::string ans = m_classA->show_plan();
+    std::string ans = m_class->show_plan();
     return Napi::String::New(env, ans);
 }
 
 Napi::Value Wrapper::getTtlHours(const Napi::CallbackInfo &info)
 {
     Napi::Env env = info.Env();
-    long ttl_hours = m_classA->get_ttl_hours();
+    long ttl_hours = m_class->get_ttl_hours();
     return Napi::Number::New(env, ttl_hours);
+}
+
+Napi::Value Wrapper::swapPlanElements(const Napi::CallbackInfo &info)
+{
+    Napi::Env env = info.Env();
+    int i = info[0].As<Napi::Number>().Int32Value();
+    int j = info[1].As<Napi::Number>().Int32Value();
+    int ret = m_class->swap_plan_elements(i, j);
+    return Napi::Number::New(env, ret);
 }
