@@ -2,6 +2,8 @@
 #include "wrapper.h"
 #include <iostream>
 
+// このファイルは基本的には編集しない
+
 // jsオブジェクトが初期化された時 new()の呼び出し
 Napi::Object CreateObject(const Napi::CallbackInfo& info) {
     return Wrapper::NewInstance(info.Env(), info);

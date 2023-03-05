@@ -1,0 +1,11 @@
+
+# test file
+webviewer/test/cpp/build/bin/
+webviewer/test/cpp/build/obj/
+
+# build file
+webviewer/build/
+
+
+# .gitignore
+

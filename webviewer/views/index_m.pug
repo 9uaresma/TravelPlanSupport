@@ -4,23 +4,40 @@ block content
 
   body
     form(action="/" method="post")
-      label input your plan
+      label Set Departure Date and Time 
       br
-      input(type="text" name="plan" placeholder="plan name")
+      input(type="number" name="dep_month" min=0 max=12 placeholder="month" class="dep_input" value=dep_month)
+      a 月
+      input(type="number" name="dep_date" min=0 max=31 placeholder="date" class="dep_input" value=dep_date)
+      a 日
       br
-      input(type="number" name="hour" max=1000 placeholder="hour")
+      input(type="number" name="dep_hour" min=0 max=24 placeholder="hour" class="dep_input" value=dep_hour)
+      a 時
+      input(type="number" name="dep_min" min=0 max=60 placeholder="min" class="dep_input" value=dep_min)
+      a 分
+      br
+      input(type="submit" name = "set_dep" value="set")
+
+    
+    label Your Travel Plan
+    br
+    a place_num = #{place_num}  TTL hours = #{ttl_hours}
+  
+    - for (var i=0; i<place_num; i++)
+      form(action="/" method="post")
+        br
+        if i == 0
+          input(type="submit" id="btn" name = "btn" value=" " class="swapButton")
+        else
+          input(type="submit" id="btn" name = "btn" value="↑" class="swapButton")
+        input(type="number" name="num" value=i class="button_num" readonly="readonly")
+        label       #{places[i]} : #{hours[i]} hours
+    br
+    form(action="/" method="post")  
+      input(type="text" name="place" placeholder="place" class="place")
+      input(type="number" name="hour" max=1000 placeholder="hour" class="hour")
       br
       input(type="submit" name = "add" value="Add")
 
-    a plan_num = #{plan_num}  TTL hours = #{ttl_hours}
     
-      - for (var i=0; i<plan_num; i++)
-        form(action="/" method="post")
-          br
-          if i == 0
-            input(type="submit" id="btn" name = "btn" value=" " class="Button")
-          else
-            input(type="submit" id="btn" name = "btn" value="↑" class="Button")
-          input(type="number" name="num" value=i class="button_num" readonly="readonly")
-          label       #{plans[i]} : #{hours[i]} hours
 

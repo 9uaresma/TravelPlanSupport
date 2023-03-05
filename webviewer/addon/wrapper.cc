@@ -3,9 +3,6 @@
 
 using namespace Napi;
 
-// ---------------------------------------------------------- //
-// ---------------------のり付け部分--------------------------- //
-// ---------------------------------------------------------- //
 // new() の定義
 Napi::Object Wrapper::NewInstance(Napi::Env env, const Napi::CallbackInfo &info)
 {
@@ -30,6 +27,8 @@ Napi::Object Wrapper::Init(Napi::Env env, Napi::Object exports)
             InstanceMethod("showPlan", &Wrapper::showPlan),
             InstanceMethod("getTtlHours", &Wrapper::getTtlHours),
             InstanceMethod("swapPlanElements", &Wrapper::swapPlanElements),
+            InstanceMethod("setDepartureDate", &Wrapper::setDepartureDate),
+            InstanceMethod("getDepartureDate", &Wrapper::getDepartureDate),
         });
 
     Napi::FunctionReference *constructor = new Napi::FunctionReference();
@@ -111,4 +110,26 @@ Napi::Value Wrapper::swapPlanElements(const Napi::CallbackInfo &info)
     int j = info[1].As<Napi::Number>().Int32Value();
     int ret = m_class->swap_plan_elements(i, j);
     return Napi::Number::New(env, ret);
+}
+
+Napi::Value Wrapper::setDepartureDate(const Napi::CallbackInfo &info)
+{
+    Napi::Env env = info.Env();
+    int month = info[0].As<Napi::Number>();
+    int date = info[1].As<Napi::Number>();
+    int hour = info[2].As<Napi::Number>();
+    int min = info[3].As<Napi::Number>();
+    m_class->set_departure_date(month, date, hour, min);
+    return env.Null();
+}
+
+Napi::Value Wrapper::getDepartureDate(const Napi::CallbackInfo &info)
+{
+    Napi::Env env = info.Env();
+    std::vector<int> dep_date = m_class->get_departure_date();
+    Napi::Array outArr = Napi::Array::New(env, dep_date.size());
+    for (size_t i=0; i < dep_date.size(); i++){
+        outArr[i] = Napi::Number::New(env, dep_date[i]);
+    }
+    return outArr;
 }

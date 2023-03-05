@@ -37,7 +37,8 @@ app.use(function(err, req, res, next) {
 module.exports = app;
 
 const http = require('http');
-const hostname = '127.0.0.1';
+// const hostname = '127.0.0.1';
+const hostname = '192.168.1.73';
 const port = 3000;
  
 var server = http.createServer(app);

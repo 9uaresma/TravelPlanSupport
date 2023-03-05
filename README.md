@@ -43,6 +43,10 @@ Input your plan の所に，Plan名 と，所要時間を記入して，Addを�
 ![AboutWebViewer](/docs/gif/webviewer_use.gif)
 
 
+### PC版最新イメージ
+
+<img src="./docs/images/webviewer_image.png" width='100%'>
+
 ### ビルド手順
 
 あらかじめ，c++のコンパイラをインストールして，Pathを通しておく．  
@@ -90,6 +94,7 @@ Server running at http://127.0.0.1:3000 と表示されるので，
 Windowsの設定を編集する．  
 Settings > Network を開き，  
 Network profile でPrivateにチェックを入れる．  
+下のほうの，IPv4 address を確認する
 
 その後，同様に，
 ```
@@ -97,10 +102,10 @@ Network profile でPrivateにチェックを入れる．
 node .\app.js
 
 ```
-でローカルサーバー起動し，
-http://127.0.0.1:3000 にアクセス．
+でローカルサーバー起動し，  
+"IPv4 address :3000" にアクセス．
 
-<img src="./docs/images/webviewer_iphone.jpg" width='50%'>
+<img src="./docs/images/webviewer_iphone.png" width='50%'>
 
 <!--
 

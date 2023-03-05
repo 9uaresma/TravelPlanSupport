@@ -1,13 +1,27 @@
-
 #include "planContainer.h"
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <iomanip>
 
+std::vector<int> getDateInt() {
+    time_t t = time(nullptr);
+    const tm* localTime = localtime(&t);
+
+    std::vector<int> s;
+    s = {
+        localTime->tm_mon+1,
+        localTime->tm_mday,
+        localTime->tm_hour,
+        localTime->tm_min
+    };
+    return s;
+}
 
 PlanContainer::PlanContainer() {
     plan_num = 0;
     ttl_hours = 0.0;
+    departure_date = getDateInt();  //現在の日時で初期化
 }
 
 PlanContainer::~PlanContainer()
@@ -66,4 +80,15 @@ int PlanContainer::swap_plan_elements(int i, int j) {
         return -1;
     }
     return 0;
+}
+
+void PlanContainer::set_departure_date(int month, int date, int hour, int min){
+    departure_date[0] = month;
+    departure_date[1] = date;
+    departure_date[2] = hour;
+    departure_date[3] = min;
+}
+
+std::vector<int> PlanContainer::get_departure_date(){
+    return departure_date;
 }

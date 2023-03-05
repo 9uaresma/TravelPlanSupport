@@ -26,20 +26,37 @@ content body a {
   color: #00B7FF;
 }
 content body form label {
-  padding-left: 20px;
+  padding-left: 30px;
   text-indent: 10.0em;
 }
-.Button {
+
+.dep_input {
+  width: 60px;
+}
+
+.place {
+  width: 100px;
+}
+
+.hour {
+  width: 60px;
+}
+
+.swapButton {
   /* color: white;
   background:rgb(49, 48, 39);
   border: 2px solid transparent; */
   height: 20px;
-  width: 30px;
+  width: 40px;
   cursor: pointer;
   align-items: center;
+  border: 2px rgb(136, 125, 77);
+  background:rgb(136, 125, 77);
+  color: white;
+  border-radius: 10px;
 }
-.Button.hover {
-  border: 2px solid rgb(105, 95, 4);
+.swapButton.hover {
+  border: 2px rgb(136, 125, 77);
   background: white;
   color: black;
 }

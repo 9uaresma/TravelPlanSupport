@@ -15,10 +15,17 @@ public:
     // クラスAのラッピング関数
     Napi::Value setPlan(const Napi::CallbackInfo &info);
     Napi::Value getPlans(const Napi::CallbackInfo &info);
+
     Napi::Value getHours(const Napi::CallbackInfo &info);
+
     Napi::Value showPlan(const Napi::CallbackInfo &info);
+
     Napi::Value getTtlHours(const Napi::CallbackInfo &info);
+
     Napi::Value swapPlanElements(const Napi::CallbackInfo &info);
+
+    Napi::Value setDepartureDate(const Napi::CallbackInfo &info);
+    Napi::Value getDepartureDate(const Napi::CallbackInfo &info);
 
 private:
     PlanContainer* m_class;
