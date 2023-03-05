@@ -8,15 +8,32 @@ var planContainer = new Wrapper();
 
 var plan_num = 0;
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', {
-     title: 'Travel Plan Support',
-     plans: planContainer.getPlans(),
-     hours: planContainer.getHours(),
-     plan_num,
-     ttl_hours: planContainer.getTtlHours(),
-    });
+router.get('/', function(req, res, next){
+  //User Agentの取得
+  var userAgent = req.headers['user-agent'].toLowerCase();
+  console.log("userAgent = ", userAgent);
+
+  // 表示するページ出し分け
+  if(userAgent.indexOf("android") != -1
+    || userAgent.indexOf("iphone") != -1
+    || userAgent.indexOf("ipod") != -1){
+      res.render('index_m',{
+        title: 'Travel Plan Support',
+        plans: planContainer.getPlans(),
+        hours: planContainer.getHours(),
+        plan_num,
+        ttl_hours: planContainer.getTtlHours(),
+      });
+  }
+  else{
+      res.render('index', {
+        title: 'Travel Plan Support',
+        plans: planContainer.getPlans(),
+        hours: planContainer.getHours(),
+        plan_num,
+        ttl_hours: planContainer.getTtlHours(),
+      });
+  }
 });
 
 /**
@@ -56,20 +73,5 @@ router.post('/', (req, res, next) => {
   }
   
 });
-
-
-// router.post('/', function(req, res, next){
-//   console.log(req.body);
-//   const plan_name = req.body.plan;
-//   const plan_hour = req.body.hour;
-//   planContainer.setPlan(plan_name, Number(plan_hour));
-
-//   plan_num ++;
-//   res.redirect('/');
-// });
-
-
-
-
 
 module.exports = router;

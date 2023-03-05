@@ -1,0 +1,26 @@
+extends components_m/_layout
+
+block content
+
+  body
+    form(action="/" method="post")
+      label input your plan
+      br
+      input(type="text" name="plan" placeholder="plan name")
+      br
+      input(type="number" name="hour" max=1000 placeholder="hour")
+      br
+      input(type="submit" name = "add" value="Add")
+
+    a plan_num = #{plan_num}  TTL hours = #{ttl_hours}
+    
+      - for (var i=0; i<plan_num; i++)
+        form(action="/" method="post")
+          br
+          if i == 0
+            input(type="submit" id="btn" name = "btn" value=" " class="Button")
+          else
+            input(type="submit" id="btn" name = "btn" value="↑" class="Button")
+          input(type="number" name="num" value=i class="button_num" readonly="readonly")
+          label       #{plans[i]} : #{hours[i]} hours
+

@@ -3,7 +3,7 @@
 ## Git repository
 https://github.com/9uaresma/TravelPlanSupport
 
-gitからcloneする
+Clone from git
 
 ```
 #! bash
@@ -29,11 +29,9 @@ git clone https://github.com/9uaresma/TravelPlanSupport.git
 ブラウザで動作する機能追加中．  
 nodejsからc++のクラスを呼び出す構造
 
-ビューワー: webviewer  
-nodejsで作成
+ビューワー: nodejsで作成
 
-処理系: cpp  
-c++ で作成
+処理系: c++ でnodejsのaddon作成
 
 ### 使い方
 Input your plan の所に，Plan名 と，所要時間を記入して，Addをクリック  
@@ -51,15 +49,7 @@ Input your plan の所に，Plan名 と，所要時間を記入して，Addを�
 このへん  
 https://www.mingw-w64.org/downloads/
 
-```
-#! bash
-
-cd travelplansupport/cpp/build
-make
-
-```
-
-
+これもいるかも
 ```
 
 npm install --global windows-build-tools
@@ -96,6 +86,21 @@ Server running at http://127.0.0.1:3000 と表示されるので，
 ブラウザを開き，urlを入力すると，見れる.
 
 
+### スマホでアクセスするには
+Windowsの設定を編集する．  
+Settings > Network を開き，  
+Network profile でPrivateにチェックを入れる．  
+
+その後，同様に，
+```
+
+node .\app.js
+
+```
+でローカルサーバー起動し，
+http://127.0.0.1:3000 にアクセス．
+
+<img src="./docs/images/webviewer_iphone.jpg" width='50%'>
 
 <!--
 
