@@ -20,10 +20,10 @@ router.get('/', function(req, res, next){
   if(userAgent.indexOf("android") != -1
     || userAgent.indexOf("iphone") != -1
     || userAgent.indexOf("ipod") != -1){
-    callIndex(res, 'index_m');  // for PC
+    callIndex(res, 'index_m');  // for smartPhone
   }
   else{
-    callIndex(res, 'index_m');  // for smartPhone
+    callIndex(res, 'index');  // for PC
   }
 });
 
