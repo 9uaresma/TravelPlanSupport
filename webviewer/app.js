@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
+const ip = require('ip')
 const app = express();
 
 // view engine setup
@@ -37,14 +37,15 @@ app.use(function(err, req, res, next) {
 module.exports = app;
 
 const http = require('http');
-// const hostname = '127.0.0.1';
-const hostname = '192.168.1.73';
-const port = 3000;
- 
+const hostname = process.env.HOST || "0.0.0.0";
+const port = Number(process.env.PORT || 3000);
+
 var server = http.createServer(app);
 
 server.listen(port, hostname, () => {
+  const host = ip.address();
   console.log(`Server running at http://${hostname}:${port}/`);
+  console.log(`Server running at http://${host}:${port}/`);
 });
 
 server.listen(port, function() {

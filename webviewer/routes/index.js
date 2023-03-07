@@ -1,50 +1,29 @@
 const express = require('express');
 const router = express.Router();
 
-
 // cpp connection
 var Wrapper = require('bindings')('addon');
 var planContainer = new Wrapper();
 
+// variables
 var place_num = 0;
+var dep_month, dep_date, dep_hour, dep_min;
 
+// Load home page
 router.get('/', function(req, res, next){
   //User Agentの取得
   var userAgent = req.headers['user-agent'].toLowerCase();
   console.log("userAgent = ", userAgent);
-  let dep_month = planContainer.getDepartureDate()[0];
-  let dep_date = planContainer.getDepartureDate()[1];
-  let dep_hour = planContainer.getDepartureDate()[2];
-  let dep_min = planContainer.getDepartureDate()[3];
+  [dep_month, dep_date, dep_hour, dep_min] = planContainer.getDepartureDate();
 
   // 表示するページ出し分け
   if(userAgent.indexOf("android") != -1
     || userAgent.indexOf("iphone") != -1
     || userAgent.indexOf("ipod") != -1){
-      res.render('index_m',{
-        title: 'Travel Plan Support',
-        places: planContainer.getPlans(),
-        hours: planContainer.getHours(),
-        place_num: place_num,
-        ttl_hours: planContainer.getTtlHours(),
-        dep_month: dep_month,
-        dep_date: dep_date,
-        dep_hour: dep_hour,
-        dep_min: dep_min,
-      });
+    callIndex(res, 'index_m');  // for PC
   }
   else{
-      res.render('index', {
-        title: 'Travel Plan Support',
-        places: planContainer.getPlans(),
-        hours: planContainer.getHours(),
-        place_num: place_num,
-        ttl_hours: planContainer.getTtlHours(),
-        dep_month: dep_month,
-        dep_date: dep_date,
-        dep_hour: dep_hour,
-        dep_min: dep_min,
-      });
+    callIndex(res, 'index_m');  // for smartPhone
   }
 });
 
@@ -92,7 +71,21 @@ router.post('/', (req, res, next) => {
   } else {
     console.log("else");
   }
-  
 });
 
 module.exports = router;
+
+
+function callIndex(res, index){
+  res.render(index,{
+    title: 'Travel Plan Support',
+    places: planContainer.getPlans(),
+    hours: planContainer.getHours(),
+    ttl_hours: planContainer.getTtlHours(),
+    place_num: place_num,
+    dep_month: dep_month,
+    dep_date: dep_date,
+    dep_hour: dep_hour,
+    dep_min: dep_min,
+  });
+}
