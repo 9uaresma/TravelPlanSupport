@@ -3,7 +3,7 @@
 ## Git repository
 https://github.com/9uaresma/TravelPlanSupport
 
-Clone from git
+Clone from git and checkout.
 
 ```
 #! bash
@@ -27,6 +27,8 @@ git clone https://github.com/9uaresma/TravelPlanSupport.git
 
 ### 概要  
 ブラウザで動作する機能追加中．  
+Branch: WebViewer
+
 nodejsからc++のクラスを呼び出す構造
 
 ビューワー: nodejsで作成
@@ -60,6 +62,15 @@ npm install --global windows-build-tools
 
 ```
 
+WebViewerブランチに切り替える
+```
+#! bash
+# run at travelplansupport/
+
+git checkout WebViewer
+
+```
+
 
 ### Nodejsでc++クラスを利用する方法
 参考：
@@ -81,29 +92,19 @@ gyp info ok と表示されればOK
 ビルドに成功したら，ローカルサーバー起動
 
 ```
+#!bash
 
 node .\app.js
 
 ```
 
-Server running at http://127.0.0.1:3000 と表示されるので，  
-ブラウザを開き，urlを入力すると，見れる.
-
+Server running at http:***** とコンソール画面に表示されるので，クリックすると，ブラウザが開く
 
 ### スマホでアクセスするには
-Windowsの設定を編集する．  
+あらかじめ，Windowsの設定を編集する．  
 Settings > Network を開き，  
-Network profile でPrivateにチェックを入れる．  
-下のほうの，IPv4 address を確認する
-
-その後，同様に，
-```
-
-node .\app.js
-
-```
-でローカルサーバー起動し，  
-"IPv4 address :3000" にアクセス．
+Network profile でPrivateにチェックを入れる． 
+これで，PCのブラウザと同様にアクセスできる． 
 
 <img src="./docs/images/webviewer_iphone.png" width='50%'>
 
