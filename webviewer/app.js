@@ -44,7 +44,6 @@ var server = http.createServer(app);
 
 server.listen(port, hostname, () => {
   const host = ip.address();
-  console.log(`Server running at http://${hostname}:${port}/`);
   console.log(`Server running at http://${host}:${port}/`);
 });
 
