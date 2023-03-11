@@ -12,9 +12,11 @@ time_to=4
 class Application(ttk.Frame):   #メインフレーム Frameクラスを継承  
     class InputTable:
         InputTableNum = 0
+        InputTableList = []
         class RectGeneration:
             def __init__(self):                  # コンストラクタ
                 self.canv = None
+                self.rect_exist=False
             def DrawRect(self, parent_frame, ent_from_time, ent_from_minute, ent_to_time, ent_to_minute):
                 def inner():
                     if self.canv==None:
@@ -29,6 +31,7 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
                             rect_return=Canvas(parent_frame, relief=FLAT,bg='gold',width=rect_width,height=20,highlightthickness=0)
                             rect_return.place(x=start_minute*40/60,y=0) 
                             self.canv = rect_return
+                            self.rect_exist=True
                             print(self.canv)
                         else:
                             print("Enter Digits!")
@@ -40,12 +43,14 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
                     if self.canv!=None:
                         self.canv.destroy()
                         self.canv=None
+                        self.rect_exist=False
                         print(self.canv)
                     else:
                         print(self.canv)
                 return inner        
 
         def __init__(self,ParentFrame,frame_TimeTable_Table):                  # コンストラクタ
+            
             #入力部
             
             label_title=Label(ParentFrame,text="タイトル",bg=COLOR_OF_TIME_AXIS,font=("",'10'))
@@ -96,14 +101,23 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
             #button_remove = Button(ParentFrame, text="Enter",command=self.RemoveWidget_place(rect))
             button_remove.grid(row=0,column=13)
     
-    def ApendInputTable(self, ParentFrame, frame_TimeTable_Table,button_TimeInput):
+    def ApendInputTable(self, ParentFrame, frame_TimeTable_Table,frame_button_TimeInput):
         def inner():                
-            frame_TimeInput=Frame(ParentFrame, relief=FLAT,bg='gray',width=1000,height=100)
-            frame_TimeInput.grid(row=self.InputTable.InputTableNum,column=0)
-            self.InputTable(frame_TimeInput,frame_TimeTable_Table)          
-            button_TimeInput.grid_forget()   
-            button_TimeInput.grid(row=self.InputTable.InputTableNum + 1,column=0)
+            self.InputTable.InputTableList.append(Frame(ParentFrame, relief=FLAT,bg='gray',width=1000,height=100))
+            self.InputTable.InputTableList[-1].grid(row=self.InputTable.InputTableNum+1,column=0, columnspan=2)
+            self.InputTable(self.InputTable.InputTableList[-1],frame_TimeTable_Table)
+            frame_button_TimeInput.grid_forget()   
+            frame_button_TimeInput.grid(row=self.InputTable.InputTableNum + 2,column=0,sticky=N)
             self.InputTable.InputTableNum = self.InputTable.InputTableNum + 1
+        return inner
+    
+    def RmInputTable(self):
+        def inner(): 
+            if self.InputTable.RectGeneration.rect_exist:
+                print("exist rect")
+            else:
+                self.InputTable.InputTableList[-1].grid_forget()
+                self.InputTable.InputTableList.pop()
         return inner
 
     def __init__(self, master = None):  #コンストラクタ(インスタンス生成時に実行される処理)
@@ -145,10 +159,19 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
         #入力部
         frame_TimeInput=Frame(self, relief=FLAT,bg='blue',width=1000,height=100)
         frame_TimeInput.place(x=0,y=70)
-        
-        button_TimeInput = Button(frame_TimeInput)
-        button_TimeInput.configure(text="追加", command=self.ApendInputTable(frame_TimeInput,frame_TimeTable_Table,button_TimeInput))
-        button_TimeInput.grid(row=3,column=0,sticky=E)
+        frame_TimeInput_base=Frame(frame_TimeInput, relief=FLAT,bg='yellow',width=1000,height=10)
+        frame_TimeInput_base.grid(row=0,column=0,columnspan=2)
+
+        frame_button_TimeInput=Frame(frame_TimeInput,bg='red')
+        frame_button_TimeInput.grid(row=1,column=0)
+
+        button_TimeInput_Ap = Button(frame_button_TimeInput)
+        button_TimeInput_Ap.configure(text="追加", command=self.ApendInputTable(frame_TimeInput,frame_TimeTable_Table,frame_button_TimeInput))
+        button_TimeInput_Ap.grid(row=0,column=0)
+
+        button_TimeInput_Rm = Button(frame_button_TimeInput)
+        button_TimeInput_Rm.configure(text="削除", command=self.RmInputTable())
+        button_TimeInput_Rm.grid(row=0,column=1)
 
 
 if __name__ == "__main__":
