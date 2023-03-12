@@ -14,7 +14,7 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
     class InputTable:
         InputTableNum = 0
            
-        def DrawRect(self, parent_frame, ent_from_time, ent_from_minute, ent_to_time, ent_to_minute):
+        def DrawRect(self, parent_frame, ent_from_time, ent_from_minute, ent_to_time, ent_to_minute, ent_title):
             def inner():
                 if self.canv==None:
                     if str.isdigit(ent_from_time.get()) and str.isdigit(ent_from_minute.get()) and str.isdigit(ent_to_time.get()) and str.isdigit(ent_to_minute.get()):
@@ -26,6 +26,8 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
                         rect_width=(end_minute - start_minute)*40/60
                         print(rect_width)
                         rect_return=Canvas(parent_frame, relief=FLAT,bg='gold',width=rect_width,height=20,highlightthickness=0)
+                        rect_return.create_rectangle(0,0,rect_width,20,width=2)
+                        rect_return.create_text(2,10,text=ent_title.get(),anchor=W)
                         rect_return.place(x=start_minute*40/60,y=0) 
                         self.canv = rect_return
                         self.rect_exist=True
@@ -94,6 +96,7 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
                                                                                     ent_TimeInput_from_minute,
                                                                                     ent_TimeInput_to_time,
                                                                                     ent_TimeInput_to_minute,
+                                                                                    ent_label_title
                                                                                     ))
             button_Time.grid(row=0,column=12)
             button_remove = Button(ParentFrame, text="Remove",command=self.RmRect())
@@ -138,12 +141,12 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
             frame_TimeTable_Table_rect[i].create_rectangle(0, 0, 40, 40,fill=COLOR_OF_TIME_TABLE)       
         del i
         #入力部
-        frame_TimeInput=Frame(self, relief=FLAT,bg='blue',width=1000,height=100)
+        frame_TimeInput=Frame(self, relief=FLAT,bg='gray',width=1000,height=100)
         frame_TimeInput.place(x=0,y=70)
-        frame_TimeInput_base=Frame(frame_TimeInput, relief=FLAT,bg='yellow',width=1000,height=10)
-        frame_TimeInput_base.grid(row=0,column=0,columnspan=2)
+        frame_TimeInput_base=Frame(frame_TimeInput, relief=FLAT,bg='gray',width=1000,height=1)
+        frame_TimeInput_base.grid(row=0,column=0)
 
-        frame_button_TimeInput=Frame(frame_TimeInput,bg='red')
+        frame_button_TimeInput=Frame(frame_TimeInput,bg='gray')
         frame_button_TimeInput.grid(row=1,column=0)
 
         button_TimeInput_Ap = Button(frame_button_TimeInput)
