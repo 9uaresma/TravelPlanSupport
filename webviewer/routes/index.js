@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// cpp connection
+// Load cpp class
 var Wrapper = require('bindings')('addon');
 var planContainer = new Wrapper();
 
@@ -47,6 +47,7 @@ router.post('/', (req, res, next) => {
       console.log("input value !");
     }
   } else if(req.body.set_dep){
+    // 出発日時をセットするボタンが押された時の処理
     let month = Number(req.body.dep_month);
     let date = Number(req.body.dep_date);
     let hour = Number(req.body.dep_hour);
@@ -59,6 +60,7 @@ router.post('/', (req, res, next) => {
     }
 
   } else if(req.body.btn){
+    // 予定追加ボタンを押した時の処理
     const num = Number(req.body.num);
     console.log("num = ", req.body.num)
     console.log("num = ", num);
@@ -77,6 +79,7 @@ module.exports = router;
 
 
 function callIndex(res, index){
+  // index: string index file to call
   res.render(index,{
     title: 'Travel Plan Support',
     places: planContainer.getPlans(),
