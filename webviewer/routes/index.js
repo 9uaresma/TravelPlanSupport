@@ -57,6 +57,9 @@ router.post('/', (req, res, next) => {
       console.log("Departure Date & Time is set!");
       console.log("departure_date = ", planContainer.getDepartureDate());
       res.redirect('/');
+    } else {
+      console.log("Invalid values");
+      res.redirect('/');
     }
 
   } else if(req.body.btn){
@@ -71,7 +74,8 @@ router.post('/', (req, res, next) => {
       res.redirect('/');
     }
   } else {
-    console.log("else");
+    console.log("Invalid value");
+    res.redirect('/');
   }
 });
 
