@@ -16,33 +16,33 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
            
         def DrawRect(self, parent_frame, ent_from_time, ent_from_minute, ent_to_time, ent_to_minute, ent_title):
             def inner():
-                if self.canv==None:
-                    if str.isdigit(ent_from_time.get()) and str.isdigit(ent_from_minute.get()) and str.isdigit(ent_to_time.get()) and str.isdigit(ent_to_minute.get()):
-                        #開始時刻[分]
-                        start_minute = int(ent_from_time.get())*60 + int(ent_from_minute.get())
-                        #終了時刻[分]
-                        end_minute = int(ent_to_time.get())*60 + int(ent_to_minute.get())
-                        #矩形width計算
-                        rect_width=(end_minute - start_minute)*40/60
-                        print(rect_width)
-                        rect_return=Canvas(parent_frame, relief=FLAT,bg='gold',width=rect_width,height=20,highlightthickness=0)
-                        rect_return.create_rectangle(0,0,rect_width,20,width=2)
-                        rect_return.create_text(2,10,text=ent_title.get(),anchor=W)
-                        rect_return.place(x=start_minute*40/60,y=0) 
-                        self.canv = rect_return
-                        self.rect_exist=True
-                        print(self.canv)
-                    else:
-                        print("Enter Digits!")
+                if self.canv!=None:
+                    self.canv.destroy()            
+                if str.isdigit(ent_from_time.get()) and str.isdigit(ent_from_minute.get()) and str.isdigit(ent_to_time.get()) and str.isdigit(ent_to_minute.get()):
+                    #開始時刻[分]
+                    start_minute = int(ent_from_time.get())*60 + int(ent_from_minute.get())
+                    #終了時刻[分]
+                    end_minute = int(ent_to_time.get())*60 + int(ent_to_minute.get())
+                    #矩形width計算
+                    rect_width=(end_minute - start_minute)*40/60
+                    print(rect_width)
+                    rect_return=Canvas(parent_frame, relief=FLAT,bg='gold',width=rect_width,height=20,highlightthickness=0)
+                    rect_return.create_rectangle(0,0,rect_width,20,width=2)
+                    self.textid=rect_return.create_text(2,10,text=ent_title.get(),anchor=W)
+                    rect_return.place(x=start_minute*40/60,y=0) 
+                    self.canv = rect_return
+                    
+                    print(self.textid)
                 else:
-                    pass
+                    print("Enter Digits!")
+                
             return inner
         def RmRect(self):
             def inner():
                 if self.canv!=None:
                     self.canv.destroy()
                     self.canv=None
-                    self.rect_exist=False
+                    
                     print(self.canv)
                 else:
                     print(self.canv)
@@ -50,7 +50,8 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
 
         def __init__(self,ParentFrame,frame_TimeTable_Table):                  # コンストラクタ
             self.canv = None
-            self.rect_exist=False
+            self.textid = None
+            
             self.parent_frame = ParentFrame
         
             #入力部
@@ -169,7 +170,7 @@ class Application(ttk.Frame):   #メインフレーム Frameクラスを継承
     
     def RmInputTable(self):
         def inner(): 
-            if self.InputTableList[-1].rect_exist:
+            if self.InputTableList[-1].canv:
                 print("exist rect")
             else:
                 self.InputTableList[-1].parent_frame.grid_forget()
