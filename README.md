@@ -3,23 +3,12 @@
 ## Git repository
 https://github.com/9uaresma/TravelPlanSupport
 
-Clone from git and checkout.
-
-```
-#! bash
-
-git clone https://github.com/9uaresma/TravelPlanSupport.git
-
-```
-
-
 
 ## **デスクトップ版**
 ---------------------------
 ### 機能一覧
 * 出発時刻と到着時刻を入力してEnterを押すと、時刻表に帯を表示する
 * Removeボタンを押すと、帯が消える。
-
 
 
 ## **ブラウザ版**
@@ -45,68 +34,103 @@ Input your plan の所に，Plan名 と，所要時間を記入して，Addを�
 ![AboutWebViewer](/docs/gif/webviewer_use.gif)
 
 
-### PC版最新イメージ
-
+### Browser version
 <img src="./docs/images/webviewer_image.png" width='100%'>
 
-### ビルド手順
+### For Smartphone
+<img src="./docs/images/webviewer_iphone.png" width='50%'>
 
-あらかじめ，c++のコンパイラをインストールして，Pathを通しておく．  
-このへん  
-https://www.mingw-w64.org/downloads/
+### Support For Desktop !!
+<img src="./docs/images/for_desktop_screen_shot.png" width='100%'>
 
-これもいるかも
+### How To Build
+
+#### Environment Setup
+* Install c++    
+https://www.mingw-w64.org/downloads/  
+Pathも通しておく．
+
+* Install node.js  
+https://nodejs.org/en/
+
+
+* Install npm modules    
 ```
+#!bash
 
 npm install --global windows-build-tools
-
+npm install nativefier -g
 ```
 
-WebViewerブランチに切り替える
-```
-#! bash
-# run at travelplansupport/
+* Clone TravelPlanSupport from git and checkout webviewer branch.
 
+```
+#go to the folder where you clone GitHub projects
+
+git clone https://github.com/9uaresma/TravelPlanSupport.git
+cd TravelPlanSupport
 git checkout WebViewer
-
 ```
 
+* Build desktop app
+```
+./setup.bat
+```
 
-### Nodejsでc++クラスを利用する方法
-参考：
+* Build node.js app
+```
+cd travelplansupport/webviewer
+npm install .
+```
+gyp info ok と表示されればOK  
+Error表示されたら，何かが足りない．
+
+
+### Run node.js server
+```
+cd travelplansupport
+node app.js
+```
+
+### Excecute desktop application
+エクスプローラーでwebviewer/TravelPlanSupport-win32-64を開く．   
+TravelPlanSupport.exe をダブルクリック
+
+### Access from WebBrowser
+node.jsサーバーを起動したときに，  
+```
+Server running at http://***.***.**.**:***/
+```
+と表示されるので，そのアドレスをurlに入力する
+
+### Access from smartphone
+あらかじめ，Windowsの設定を編集する．  
+Settings > Network を開き，  
+Network profile でPrivateにチェックを入れる． 
+これで，PCのブラウザと同様にアクセスできる． 
+
+
+------------------
+### 参考情報
+* Nodejsでc++クラスを利用する方法
 https://qiita.com/Akihiro_Nakayama/items/dc31f9ae9519602f9f50
 
-addon/native_cpp/planContainer.cpp に定義したクラスを，wrapper.cppやaddon.cc を使って
-nodejsに引き渡している．
-planContainer.cppの関数を増やしたら，他の関数を真似つつwrapperやaddonを編集し，以下を実行．
+addon/native_cpp/planContainer.cpp に定義したクラスを，  
+wrapper.cppやaddon.cc を使ってnodejsに引き渡す．
+planContainer.cppの関数を増やしたら，他の関数を真似つつwrapperやaddonを編集し，以下を実行すれば，反映される．
 
 ```
 #! bash
 
 cd travelplansupport/webviewer
 npm install .
-
 ```
 
-gyp info ok と表示されればOK  
-ビルドに成功したら，ローカルサーバー起動
+* デスクトップ版  
+nativefierを使って生成している．
+参考：https://loumo.jp/archives/18435  
+なんでもデスクトップアプリにできる！！
 
-```
-#!bash
-
-node .\app.js
-
-```
-
-Server running at http:***** とコンソール画面に表示されるので，クリックすると，ブラウザが開く
-
-### スマホでアクセスするには
-あらかじめ，Windowsの設定を編集する．  
-Settings > Network を開き，  
-Network profile でPrivateにチェックを入れる． 
-これで，PCのブラウザと同様にアクセスできる． 
-
-<img src="./docs/images/webviewer_iphone.png" width='50%'>
 
 <!--
 
